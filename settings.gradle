@@ -1,0 +1,6 @@
+rootProject.name = 'fox-chat-backend'
+include 'user-service'
+include 'message-service'
+include 'notification-service'
+include 'common'
+
