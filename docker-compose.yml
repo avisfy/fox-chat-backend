@@ -1,0 +1,25 @@
+services:
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    container_name: user-service
+    ports:
+      - "8080:8080"
+    networks:
+      - chatnet
+
+  message-service:
+    build:
+      context: .
+      dockerfile: message-service/Dockerfile
+    container_name: message-service
+    ports:
+      - "8081:8080"
+    networks:
+      - chatnet
+
+networks:
+  chatnet:
+    external:
+      name: foxchatnet
