@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: message-service
+
+  datasource:
+    username: fox-user
+    password: Pass123
+    url: jdbc:postgresql://postgres-message:5432/messages_db
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: public
+
