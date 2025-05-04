@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/chat-api/user")
+@RequestMapping("/chat-api/v1/user")
 @AllArgsConstructor
 public class UserController {
 
