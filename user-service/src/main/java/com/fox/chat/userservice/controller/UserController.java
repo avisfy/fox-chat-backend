@@ -1,31 +1,22 @@
 package com.fox.chat.userservice.controller;
 
-import com.fox.chat.userservice.entity.User;
-import com.fox.chat.userservice.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+import com.fox.chat.common.dto.UserDto;
+import com.fox.chat.userservice.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/chat-api/v1/user")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
-
-    @PostMapping("/create")
-    public ResponseEntity<Long> createUser(@RequestBody User user) {
-        var id = userRepository.save(user).getId();
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
-    }
+    private final UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        var user = userRepository.findById(id);
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        var user = userService.findById(id);
         return user
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 }
