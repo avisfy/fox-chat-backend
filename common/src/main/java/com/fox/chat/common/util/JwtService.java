@@ -1,7 +1,11 @@
 package com.fox.chat.common.util;
 
 import com.fox.chat.common.dto.UserDto;
+import com.fox.chat.common.exception.ExpiredJwtTokenException;
+import com.fox.chat.common.exception.InvalidJwtTokenException;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -51,12 +55,18 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+        try {
+            return Jwts
+                    .parser()
+                    .verifyWith(secretKey)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+        } catch (ExpiredJwtException ex) {
+            throw new ExpiredJwtTokenException();
+        } catch (JwtException | IllegalArgumentException ex) {
+            throw new InvalidJwtTokenException();
+        }
     }
 
 }

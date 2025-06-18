@@ -16,10 +16,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<JwtResponseDto> registerUser(@RequestBody UserDto user) {
-        var isUsernameExist = userService.existsByUsername(user.username());
-        if (isUsernameExist) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
         JwtResponseDto response = userService.registerUser(user);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
