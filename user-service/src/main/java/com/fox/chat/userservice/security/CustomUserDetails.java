@@ -1,17 +1,13 @@
 package com.fox.chat.userservice.security;
 
 import com.fox.chat.userservice.entity.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
-@RequiredArgsConstructor
-public class CustomUserDetails implements UserDetails {
-
-    private final User user;
+public record CustomUserDetails(User user) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
