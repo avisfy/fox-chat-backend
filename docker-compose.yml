@@ -1,5 +1,7 @@
 services:
   user-service:
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
     build:
       context: .
       dockerfile: user-service/Dockerfile

@@ -18,6 +18,6 @@ spring:
       hibernate:
         default_schema: public
 jwt:
-  secret: testsecret
+  secret: ${JWT_SECRET}
   expiration: 3600000 #1 hour in milliseconds
 
