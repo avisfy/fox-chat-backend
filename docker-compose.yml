@@ -11,11 +11,11 @@ services:
     networks:
       - chatnet
 
-  message-service:
+  chat-service:
     build:
       context: .
-      dockerfile: message-service/Dockerfile
-    container_name: message-service
+      dockerfile: chat-service/Dockerfile
+    container_name: chat-service
     ports:
       - "8081:8080"
     networks:

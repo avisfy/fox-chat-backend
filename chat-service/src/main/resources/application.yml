@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /chat-api/v1
+
+spring:
+  application:
+    name: chat-service
+
+  datasource:
+    username: fox-user
+    password: Pass123
+    url: jdbc:postgresql://postgres-chat:5432/chat_db
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: public
+

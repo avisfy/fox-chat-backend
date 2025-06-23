@@ -11,11 +11,11 @@ services:
     networks:
       - foxchatnet
 
-  postgres-message:
+  postgres-chat:
     image: postgres:15
-    container_name: postgres-message
+    container_name: postgres-chat
     environment:
-      POSTGRES_DB: messages_db
+      POSTGRES_DB: chat_db
       POSTGRES_USER: fox-user
       POSTGRES_PASSWORD: Pass123
     ports:
