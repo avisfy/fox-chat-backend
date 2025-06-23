@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /chat-api/v1
+
 spring:
   application:
     name: chat-service
