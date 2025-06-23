@@ -1,4 +1,4 @@
-package com.fox.chat.messageservice;
+package com.fox.chat.chatservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

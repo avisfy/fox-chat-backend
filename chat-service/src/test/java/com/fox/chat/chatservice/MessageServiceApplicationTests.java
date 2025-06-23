@@ -1,8 +1,7 @@
-package com.fox.chat.messageservice;
+package com.fox.chat.chatservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 class MessageServiceApplicationTests {

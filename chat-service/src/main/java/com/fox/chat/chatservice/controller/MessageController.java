@@ -1,7 +1,7 @@
-package com.fox.chat.messageservice.controller;
+package com.fox.chat.chatservice.controller;
 
-import com.fox.chat.messageservice.entity.Message;
-import com.fox.chat.messageservice.repository.MessageRepository;
+import com.fox.chat.chatservice.entity.Message;
+import com.fox.chat.chatservice.repository.MessageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

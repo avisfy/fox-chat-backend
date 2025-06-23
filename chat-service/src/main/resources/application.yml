@@ -1,11 +1,11 @@
 spring:
   application:
-    name: message-service
+    name: chat-service
 
   datasource:
     username: fox-user
     password: Pass123
-    url: jdbc:postgresql://postgres-message:5432/messages_db
+    url: jdbc:postgresql://postgres-chat:5432/chat_db
     driver-class-name: org.postgresql.Driver
 
   jpa:
