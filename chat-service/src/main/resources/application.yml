@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /chat-api/v1
+    context-path: /chat-api
 
 spring:
   application:

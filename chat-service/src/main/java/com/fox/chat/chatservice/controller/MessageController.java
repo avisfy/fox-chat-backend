@@ -1,6 +1,7 @@
 package com.fox.chat.chatservice.controller;
 
 import com.fox.chat.chatservice.dto.CreateMessageRequestDto;
+import com.fox.chat.chatservice.dto.MessagePageResponse;
 import com.fox.chat.chatservice.service.MessageService;
 import com.fox.chat.common.dto.MessageDto;
 import jakarta.validation.Valid;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/message")
+@RequestMapping("/v1/message")
 @RequiredArgsConstructor
 public class MessageController {
 
@@ -30,11 +31,13 @@ public class MessageController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-//    @GetMapping
-//    public ResponseEntity<Page<MessageDto>> getMessagePageById(
-//            @RequestParam Long chatId,
-//            @RequestParam(defaultValue = "0") Long page,
-//            @@RequestParam(defaultValue = "0") Long size) {
-//        //TODO
-//    }
+    @GetMapping
+    public ResponseEntity<MessagePageResponse> getMessagePageByChatId(
+            @RequestParam Long chatId,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "0") Integer size) {
+        var messagesSlice = messageService.getMessagePageByChatId(chatId, page, size);
+        var responseBody = new MessagePageResponse(messagesSlice.getContent(), messagesSlice.hasNext());
+        return ResponseEntity.ok(responseBody);
+    }
 }
