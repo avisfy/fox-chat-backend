@@ -1,11 +1,12 @@
 package com.fox.chat.chatservice.service;
 
 import com.fox.chat.chatservice.dto.ChatDto;
+import com.fox.chat.chatservice.exception.NoSuchChatException;
 import com.fox.chat.chatservice.mapper.ChatMapper;
 import com.fox.chat.chatservice.repository.ChatRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +26,15 @@ public class ChatService {
         return chat.getId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<ChatDto> getChatById(Long id) {
         return chatRepository.findById(id).map(ChatMapper::toDto);
     }
 
-    public Boolean chatExists(Long chatId) {
-        return chatRepository.existsById(chatId);
+    @Transactional(readOnly = true)
+    public void checkChatExists(Long chatId) {
+        var isChatExist = chatRepository.existsById(chatId);
+        if (!isChatExist)
+            throw new NoSuchChatException(chatId);
     }
 }

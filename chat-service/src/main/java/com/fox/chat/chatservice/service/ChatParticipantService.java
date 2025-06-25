@@ -3,9 +3,9 @@ package com.fox.chat.chatservice.service;
 import com.fox.chat.chatservice.entity.Chat;
 import com.fox.chat.chatservice.entity.ChatParticipant;
 import com.fox.chat.chatservice.repository.ChatParticipantRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
