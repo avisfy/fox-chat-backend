@@ -1,6 +1,7 @@
 package com.fox.chat.chatservice.service;
 
 import com.fox.chat.chatservice.entity.Message;
+import com.fox.chat.chatservice.exception.UserNotInChatException;
 import com.fox.chat.chatservice.mapper.MessageMapper;
 import com.fox.chat.chatservice.repository.MessageRepository;
 import com.fox.chat.common.dto.MessageDto;
@@ -17,11 +18,16 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
     private final ChatService chatService;
+    private final ChatParticipantService chatParticipantService;
 
     @Transactional
     public Long createMessage(Long senderId, Long chatId, String content) {
-        chatService.checkChatExists(chatId);
-        //TODO check if sender participate in this chat
+        chatService.chatExistsValidation(chatId);
+        //User can't send a message if they are not a participant in this chat
+        var userInChat = chatParticipantService.checkIfUserInChat(chatId, senderId);
+        if (!userInChat)
+            throw new UserNotInChatException(senderId, chatId);
+
         var messageEntity = MessageMapper.toEntity(senderId, chatId, content);
         return messageRepository.save(messageEntity).getId();
     }
@@ -33,7 +39,7 @@ public class MessageService {
 
     @Transactional(readOnly = true)
     public Slice<MessageDto> getMessagePageByChatId(Long chatId, int page, int size) {
-        chatService.checkChatExists(chatId);
+        chatService.chatExistsValidation(chatId);
         Pageable pageSortedByTimestamp = PageRequest.of(page, size, Sort.by("timestamp").descending());
         Slice<Message> messages = messageRepository.findByChatId(chatId, pageSortedByTimestamp);
         return messages.map(MessageMapper::toDto);

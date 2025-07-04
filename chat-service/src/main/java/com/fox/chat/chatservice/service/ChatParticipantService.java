@@ -23,4 +23,9 @@ public class ChatParticipantService {
                 .toList();
         chatParticipantRepo.saveAll(chatParticipant);
     }
+
+    @Transactional(readOnly = true)
+    public boolean checkIfUserInChat(Long chatId, Long userId) {
+        return chatParticipantRepo.existsByUserIdAndChatId(userId, chatId);
+    }
 }

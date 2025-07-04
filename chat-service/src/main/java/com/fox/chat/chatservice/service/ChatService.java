@@ -3,6 +3,7 @@ package com.fox.chat.chatservice.service;
 import com.fox.chat.chatservice.dto.ChatDto;
 import com.fox.chat.chatservice.exception.NoSuchChatException;
 import com.fox.chat.chatservice.mapper.ChatMapper;
+import com.fox.chat.chatservice.repository.ChatParticipantRepository;
 import com.fox.chat.chatservice.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ChatService {
     }
 
     @Transactional(readOnly = true)
-    public void checkChatExists(Long chatId) {
+    public void chatExistsValidation(Long chatId) {
         var isChatExist = chatRepository.existsById(chatId);
         if (!isChatExist)
             throw new NoSuchChatException(chatId);
