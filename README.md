@@ -21,7 +21,7 @@ This will start:
 - Kafka broker (with KRaft mode)
 - Kafka UI for topic monitoring
 
-### To start application service, run 
+### To start backend application services, run
 ``` bash
 docker-compose -p fox-chat-backend -f docker-compose.yml up -d
 ```
