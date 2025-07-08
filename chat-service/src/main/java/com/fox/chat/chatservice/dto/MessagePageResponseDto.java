@@ -4,7 +4,7 @@ import com.fox.chat.common.dto.MessageDto;
 
 import java.util.List;
 
-public record MessagePageResponse(
+public record MessagePageResponseDto(
         List<MessageDto> messages,
         boolean hasNext
 ) {
