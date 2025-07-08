@@ -19,7 +19,7 @@ spring:
 
   datasource:
     username: fox-user
-    password: Pass123
+    password: ${DB_PASSWORD}
     url: jdbc:postgresql://postgres-chat:5432/chat_db
     driver-class-name: org.postgresql.Driver
 

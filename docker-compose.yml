@@ -2,6 +2,7 @@ services:
   user-service:
     environment:
       - JWT_SECRET=${JWT_SECRET}
+      - DB_PASSWORD=${DB_PASSWORD}
     build:
       context: .
       dockerfile: user-service/Dockerfile
@@ -12,6 +13,9 @@ services:
       - chatnet
 
   chat-service:
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_PASSWORD=${DB_PASSWORD}
     build:
       context: .
       dockerfile: chat-service/Dockerfile
