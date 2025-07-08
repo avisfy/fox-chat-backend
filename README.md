@@ -12,7 +12,7 @@ This project implements a chat backend using microservices architecture, Java an
 
 
 ## How to Run
-### Start the infrastructure for project
+### Start project infrastructure
 To start the *basic infrastructure*, run:
 ```bash
 docker-compose -p fox-chat-infra -f docker-compose.infra.yml up -d
