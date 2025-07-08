@@ -6,6 +6,17 @@ spring:
   application:
     name: chat-service
 
+  kafka:
+    bootstrap-servers: kafka:29092
+    client-id: chat-service
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: 1
+
+      topic:
+        sent: message-sent
+
   datasource:
     username: fox-user
     password: Pass123

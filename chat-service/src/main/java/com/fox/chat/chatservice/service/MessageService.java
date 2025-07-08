@@ -2,6 +2,7 @@ package com.fox.chat.chatservice.service;
 
 import com.fox.chat.chatservice.entity.Message;
 import com.fox.chat.chatservice.exception.UserNotInChatException;
+import com.fox.chat.chatservice.kafka.MessageProducerService;
 import com.fox.chat.chatservice.mapper.MessageMapper;
 import com.fox.chat.chatservice.repository.MessageRepository;
 import com.fox.chat.common.dto.MessageDto;
@@ -19,9 +20,10 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final ChatService chatService;
     private final ChatParticipantService chatParticipantService;
+    private final MessageProducerService messageProducerService;
 
     @Transactional
-    public Long createMessage(Long senderId, Long chatId, String content) {
+    public MessageDto createMessage(Long senderId, Long chatId, String content) {
         chatService.chatExistsValidation(chatId);
         //User can't send a message if they are not a participant in this chat
         var userInChat = chatParticipantService.checkIfUserInChat(chatId, senderId);
@@ -29,7 +31,10 @@ public class MessageService {
             throw new UserNotInChatException(senderId, chatId);
 
         var messageEntity = MessageMapper.toEntity(senderId, chatId, content);
-        return messageRepository.save(messageEntity).getId();
+        messageEntity = messageRepository.save(messageEntity);
+        var savedMessage = MessageMapper.toDto(messageEntity);
+        messageProducerService.sendMessage(savedMessage);
+        return savedMessage;
     }
 
     @Transactional(readOnly = true)
